@@ -5,18 +5,8 @@ namespace: nginx-kustomize-dev
 
 resources:
   - ../../base
+  - configmap.yaml
 
-# Override replica count
 replicas:
   - name: nginx
     count: 1
-
-# Patch the ConfigMap content for dev
-patches:
-  - patch: |-
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: nginx-index
-      data:
-        index.html: <h1>Hello from Kustomize - DEV</h1>

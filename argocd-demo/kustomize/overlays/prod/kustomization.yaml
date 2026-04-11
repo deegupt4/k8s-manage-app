@@ -5,35 +5,8 @@ namespace: nginx-kustomize-prod
 
 resources:
   - ../../base
+  - configmap.yaml
 
-# Override replica count
 replicas:
   - name: nginx
     count: 2
-
-# Patch ConfigMap content and bump resources for prod
-patches:
-  - patch: |-
-      apiVersion: v1
-      kind: ConfigMap
-      metadata:
-        name: nginx-index
-      data:
-        index.html: <h1>Hello from Kustomize - PROD</h1>
-  - patch: |-
-      apiVersion: apps/v1
-      kind: Deployment
-      metadata:
-        name: nginx
-      spec:
-        template:
-          spec:
-            containers:
-              - name: nginx
-                resources:
-                  requests:
-                    cpu: 50m
-                    memory: 64Mi
-                  limits:
-                    cpu: 200m
-                    memory: 128Mi
