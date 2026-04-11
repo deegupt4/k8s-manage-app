@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kty-dev-01.webapp
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: webapp
+    environment: dev
+    cluster: kty-dev-01
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: webapp
+  sources:
+    - repoURL: ghcr.io/stefanprodan/charts
+      chart: podinfo
+      targetRevision: 6.7.1
+      helm:
+        releaseName: webapp
+        valueFiles:
+          - $values/manifests/clusters/kty-dev-01/values.yaml
+          - $values/manifests/webapp/values.yaml
+          - $values/manifests/webapp/clusters/kty-dev-01/values.yaml
+    - repoURL: https://github.com/deegupt4/k8s-manage-app
+      targetRevision: main
+      ref: values   # named ref — used as $values above
+  destination:
+    name: kty-dev-01
+    namespace: webapp
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

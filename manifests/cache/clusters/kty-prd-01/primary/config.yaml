@@ -1,0 +1,5 @@
+# Discovered by the Git File Generator in apps/clusters/kty-prd-01/cache/cache.yaml
+# Fields here become template variables: {{shard.name}}, {{shard.role}}
+shard:
+  name: primary
+  role: master

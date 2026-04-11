@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: kty-prd-02.cache
+  namespace: argocd
+spec:
+  generators:
+    - git:
+        repoURL: https://github.com/deegupt4/k8s-manage-app
+        revision: main
+        files:
+          - path: manifests/cache/clusters/kty-prd-02/*/config.yaml
+  template:
+    metadata:
+      name: 'kty-prd-02.cache-{{shard.name}}'
+      labels:
+        app.kubernetes.io/name: cache
+        environment: prod
+        cluster: kty-prd-02
+    spec:
+      project: cache
+      source:
+        repoURL: https://github.com/deegupt4/k8s-manage-app
+        targetRevision: main
+        path: manifests/cache/clusters/kty-prd-02
+        helm:
+          releaseName: 'cache-{{shard.name}}'
+          valueFiles:
+            - values.yaml
+            - '{{shard.name}}/values.yaml'
+      destination:
+        name: kty-prd-02
+        namespace: cache
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true

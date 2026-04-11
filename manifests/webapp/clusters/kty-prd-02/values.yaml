@@ -1,0 +1,11 @@
+replicaCount: 3
+
+ui:
+  color: "#f44336"
+  message: "GitOps Demo — Production (kty-prd-02)"
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  host: webapp.prd-02.demo.example.com

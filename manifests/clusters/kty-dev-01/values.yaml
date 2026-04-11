@@ -1,0 +1,6 @@
+# Cross-app shared values for kty-dev-01
+# Referenced as $values/manifests/clusters/kty-dev-01/values.yaml
+global:
+  cluster: kty-dev-01
+  environment: dev
+  imagePullSecrets: []

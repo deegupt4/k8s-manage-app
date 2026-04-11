@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kty-prd-01.database
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: '-1'
+    notifications.argoproj.io/subscribe.on-sync-failed.slack: demo-alerts
+    notifications.argoproj.io/subscribe.on-health-degraded.slack: demo-alerts
+  labels:
+    app.kubernetes.io/name: database
+    environment: prod
+    cluster: kty-prd-01
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: database
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: postgresql
+      targetRevision: 15.5.28
+      helm:
+        releaseName: database
+        valueFiles:
+          - $values/manifests/clusters/kty-prd-01/values.yaml
+          - $values/manifests/database/values.yaml
+          - $values/manifests/database/clusters/kty-prd-01/values.yaml
+    - repoURL: https://github.com/deegupt4/k8s-manage-app
+      targetRevision: main
+      ref: values
+  destination:
+    name: kty-prd-01
+    namespace: database
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  ignoreDifferences:
+    - group: apps
+      kind: StatefulSet
+      jsonPointers:
+        - /spec/replicas

@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hou-sbx-01.cache
+  namespace: argocd
+  labels:
+    app.kubernetes.io/name: cache
+    environment: sbx
+    cluster: hou-sbx-01
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: cache
+  source:
+    repoURL: https://github.com/deegupt4/k8s-manage-app
+    targetRevision: main
+    path: manifests/cache/clusters/hou-sbx-01
+    helm:
+      releaseName: cache
+      valueFiles:
+        - values.yaml
+  destination:
+    name: hou-sbx-01
+    namespace: cache
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

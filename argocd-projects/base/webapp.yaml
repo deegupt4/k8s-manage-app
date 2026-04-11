@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: webapp
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Demo webapp (podinfo) — all clusters, all environments
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  destinations:
+    - namespace: 'webapp*'
+      server: '*'
+  roles:
+    - name: sync-role
+      description: Allow frontend team to manually sync webapp
+      policies:
+        - p, proj:webapp:sync-role, applications, sync, webapp/*, allow
+        - p, proj:webapp:sync-role, applications, get, webapp/*, allow
+      groups:
+        - frontend-team

@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hou-sbx-01.database
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: '-1'
+  labels:
+    app.kubernetes.io/name: database
+    environment: sbx
+    cluster: hou-sbx-01
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: database
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: postgresql
+      targetRevision: 15.5.28
+      helm:
+        releaseName: database
+        valueFiles:
+          - $values/manifests/clusters/hou-sbx-01/values.yaml
+          - $values/manifests/database/values.yaml
+          - $values/manifests/database/clusters/hou-sbx-01/values.yaml
+    - repoURL: https://github.com/deegupt4/k8s-manage-app
+      targetRevision: main
+      ref: values
+  destination:
+    name: hou-sbx-01
+    namespace: database
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,18 @@
+# Sandbox: standalone, no persistence, no auth
+redis:
+  auth:
+    enabled: false
+
+  architecture: standalone
+
+  master:
+    persistence:
+      enabled: false
+
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi

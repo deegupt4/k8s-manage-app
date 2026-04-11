@@ -1,0 +1,6 @@
+# Cross-app shared values for kty-prd-02
+global:
+  cluster: kty-prd-02
+  environment: prod
+  imagePullSecrets:
+    - name: registry-credentials

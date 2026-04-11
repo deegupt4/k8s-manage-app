@@ -1,0 +1,16 @@
+auth:
+  postgresPassword: "sbxpassword"
+
+primary:
+  persistence:
+    size: 5Gi
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+readReplicas:
+  replicaCount: 0

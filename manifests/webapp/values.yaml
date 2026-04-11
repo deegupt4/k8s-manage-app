@@ -1,0 +1,32 @@
+# Global defaults for webapp across ALL clusters
+replicaCount: 1
+
+ui:
+  color: "#3d6fb5"
+  message: "GitOps Demo"
+
+service:
+  type: ClusterIP
+  port: 9898
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /healthz
+    port: 9898
+  initialDelaySeconds: 5
+  periodSeconds: 15
+
+readinessProbe:
+  httpGet:
+    path: /readyz
+    port: 9898
+  initialDelaySeconds: 5
+  periodSeconds: 5

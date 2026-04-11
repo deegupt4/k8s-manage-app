@@ -1,0 +1,13 @@
+replicaCount: 1
+
+ui:
+  color: "#4caf50"
+  message: "GitOps Demo — Development"
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 64Mi

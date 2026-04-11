@@ -1,0 +1,9 @@
+apiVersion: v2
+name: cache
+description: Redis cache wrapper chart — declares upstream Bitnami redis as a dependency
+type: application
+version: 1.0.0
+dependencies:
+  - name: redis
+    version: 19.6.4
+    repository: https://charts.bitnami.com/bitnami

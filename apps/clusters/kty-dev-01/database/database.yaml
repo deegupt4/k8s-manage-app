@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kty-dev-01.database
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: '-1'   # deploy before app-tier workloads
+  labels:
+    app.kubernetes.io/name: database
+    environment: dev
+    cluster: kty-dev-01
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: database
+  sources:
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: postgresql
+      targetRevision: 15.5.28
+      helm:
+        releaseName: database
+        valueFiles:
+          - $values/manifests/clusters/kty-dev-01/values.yaml
+          - $values/manifests/database/values.yaml
+          - $values/manifests/database/clusters/kty-dev-01/values.yaml
+    - repoURL: https://github.com/deegupt4/k8s-manage-app
+      targetRevision: main
+      ref: values
+  destination:
+    name: kty-dev-01
+    namespace: database
+  syncPolicy:
+    automated:
+      prune: false    # never auto-prune stateful workloads
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

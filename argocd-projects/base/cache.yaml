@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cache
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Redis cache — all clusters, all environments
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  destinations:
+    - namespace: 'cache*'
+      server: '*'
+  roles:
+    - name: sync-role
+      policies:
+        - p, proj:cache:sync-role, applications, sync, cache/*, allow
+        - p, proj:cache:sync-role, applications, get, cache/*, allow
+      groups:
+        - platform-team

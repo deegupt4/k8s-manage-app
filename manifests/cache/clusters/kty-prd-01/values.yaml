@@ -1,0 +1,14 @@
+# Cluster-wide defaults for kty-prd-01 — shard-specific values in primary/ and replica/
+redis:
+  auth:
+    enabled: true
+    existingSecret: cache-auth-secret
+    existingSecretPasswordKey: redis-password
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi

@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: database
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: PostgreSQL — all clusters, all environments
+  sourceRepos:
+    - '*'
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  destinations:
+    - namespace: 'database*'
+      server: '*'
+  roles:
+    - name: sync-role
+      policies:
+        - p, proj:database:sync-role, applications, sync, database/*, allow
+        - p, proj:database:sync-role, applications, get, database/*, allow
+      groups:
+        - platform-team

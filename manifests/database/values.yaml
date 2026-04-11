@@ -1,0 +1,16 @@
+# Global defaults for database across ALL clusters
+auth:
+  postgresPassword: ""   # set via Secret/ExternalSecret in each cluster
+  database: appdb
+
+primary:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+  persistence:
+    enabled: true
+    size: 10Gi
