@@ -31,9 +31,9 @@ spec:
     name: kty-prd-02
     namespace: database
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
   ignoreDifferences:

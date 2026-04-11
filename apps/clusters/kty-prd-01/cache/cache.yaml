@@ -34,8 +34,8 @@ spec:
         name: kty-prd-01
         namespace: cache
       syncPolicy:
-        automated:
-          prune: true
-          selfHeal: true
+        # automated:
+        #   prune: true
+        #   selfHeal: true
         syncOptions:
           - CreateNamespace=true

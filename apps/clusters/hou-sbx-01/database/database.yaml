@@ -30,8 +30,8 @@ spec:
     name: hou-sbx-01
     namespace: database
   syncPolicy:
-    automated:
-      prune: false
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true

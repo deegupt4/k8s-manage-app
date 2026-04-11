@@ -28,8 +28,8 @@ spec:
     name: hou-sbx-01
     namespace: webapp
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+    # automated:
+    #   prune: true
+    #   selfHeal: true
     syncOptions:
       - CreateNamespace=true
