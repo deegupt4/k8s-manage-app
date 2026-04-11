@@ -1,0 +1,26 @@
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 128Mi
+
+serverBlock: |-
+  server {
+    listen 0.0.0.0:8080;
+    location / {
+      return 200 'Hello from ArgoCD -- PROD\n';
+      add_header Content-Type text/plain;
+    }
+    location /health {
+      return 200 'ok\n';
+      add_header Content-Type text/plain;
+    }
+  }

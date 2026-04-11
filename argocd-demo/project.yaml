@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: demo
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Standalone demo project — nginx on dev + prod
+  sourceRepos:
+    - https://charts.bitnami.com/bitnami
+    - https://github.com/deegupt4/k8s-manage-app
+  destinations:
+    - name: kty-dev-01
+      namespace: nginx-dev
+    - name: kty-prd-01
+      namespace: nginx-prod
+  clusterResourceWhitelist:
+    - group: ''
+      kind: Namespace
+  roles:
+    - name: demo-viewer
+      description: Can view and manually sync demo apps
+      policies:
+        - p, proj:demo:demo-viewer, applications, get, demo/*, allow
+        - p, proj:demo:demo-viewer, applications, sync, demo/*, allow
