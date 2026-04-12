@@ -8,12 +8,13 @@ metadata:
 spec:
   description: Standalone demo project — nginx on dev + prod
   sourceRepos:
-    - https://charts.bitnami.com/bitnami
+    - ghcr.io/stefanprodan/charts
     - https://github.com/deegupt4/k8s-manage-app
   destinations:
     - name: kty-dev-01
       namespace: nginx-dev
     - name: kty-prd-01
+    
       namespace: nginx-prod
     - name: kty-dev-01
       namespace: nginx-kustomize-dev

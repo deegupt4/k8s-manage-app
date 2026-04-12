@@ -1,8 +1,12 @@
 replicaCount: 1
 
+ui:
+  color: "#3d6fb5"
+  message: "Hello from ArgoCD - DEV"
+
 service:
   type: ClusterIP
-  port: 80
+  port: 9898
 
 resources:
   requests:
@@ -11,16 +15,3 @@ resources:
   limits:
     cpu: 100m
     memory: 64Mi
-
-serverBlock: |-
-  server {
-    listen 0.0.0.0:8080;
-    location / {
-      return 200 'Hello from ArgoCD -- DEV\n';
-      add_header Content-Type text/plain;
-    }
-    location /health {
-      return 200 'ok\n';
-      add_header Content-Type text/plain;
-    }
-  }

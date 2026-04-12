@@ -4,18 +4,18 @@ metadata:
   name: demo.nginx-dev
   namespace: argocd
   labels:
-    app.kubernetes.io/name: nginx
+    app.kubernetes.io/name: podinfo
     environment: dev
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: demo
   sources:
-    - repoURL: https://charts.bitnami.com/bitnami
-      chart: nginx
-      targetRevision: 18.1.5
+    - repoURL: ghcr.io/stefanprodan/charts
+      chart: podinfo
+      targetRevision: 6.7.1
       helm:
-        releaseName: nginx
+        releaseName: podinfo
         valueFiles:
           - $values/argocd-demo/manifests/values-dev.yaml
     - repoURL: https://github.com/deegupt4/k8s-manage-app
