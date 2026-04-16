@@ -2,7 +2,7 @@ global:
   imagePullSecrets:
     - name: dockerhub-pull
 
-replicaCount: 1
+replicaCount: 2
 
 ui:
   color: "#3d6fb5"
