@@ -7,7 +7,3 @@ data:
   # Use annotation-based tracking to avoid label conflicts with Helm
   application.resourceTrackingMethod: annotation
 
-  # Ignore HPA-managed replicas to avoid drift/sync loops
-  resource.customizations.ignoreDifferences.apps_Deployment: |
-    jqPathExpressions:
-    - '.spec.replicas'
