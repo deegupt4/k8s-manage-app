@@ -11,7 +11,7 @@ metadata:
 spec:
   project: demo
   sources:
-    - repoURL: https://charts.bitnami.com/bitnami
+    - repoURL: registry-1.docker.io/bitnamicharts
       chart: nginx
       targetRevision: 22.6.10
       helm:
