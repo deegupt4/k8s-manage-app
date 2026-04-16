@@ -25,9 +25,5 @@ spec:
     name: kty-dev-01
     namespace: nginx-dev
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-      
     syncOptions:
       - CreateNamespace=true
