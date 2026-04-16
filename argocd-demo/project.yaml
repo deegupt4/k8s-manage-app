@@ -10,6 +10,8 @@ spec:
   sourceRepos:
     - ghcr.io/stefanprodan/charts
     - https://github.com/deegupt4/k8s-manage-app
+    - https://charts.bitnami.com/bitnami
+    - registry-1.docker.io/bitnamicharts
   destinations:
     - name: kty-dev-01
       namespace: nginx-dev
