@@ -4,18 +4,18 @@ metadata:
   name: demo.nginx-dev
   namespace: argocd
   labels:
-    app.kubernetes.io/name: podinfo
+    app.kubernetes.io/name: nginx
     environment: dev
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: demo
   sources:
-    - repoURL: ghcr.io/stefanprodan/charts
-      chart: podinfo
-      targetRevision: 6.7.1
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: nginx
+      targetRevision: 22.6.10
       helm:
-        releaseName: podinfo
+        releaseName: nginx
         valueFiles:
           - $values/argocd-demo/manifests/values-dev.yaml
     - repoURL: https://github.com/deegupt4/k8s-manage-app
@@ -25,8 +25,8 @@ spec:
     name: kty-dev-01
     namespace: nginx-dev
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

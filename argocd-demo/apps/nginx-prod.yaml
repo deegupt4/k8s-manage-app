@@ -6,18 +6,18 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
   labels:
-    app.kubernetes.io/name: podinfo
+    app.kubernetes.io/name: nginx
     environment: prod
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
   project: demo
   sources:
-    - repoURL: ghcr.io/stefanprodan/charts
-      chart: podinfo
-      targetRevision: 6.7.1
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: nginx
+      targetRevision: 22.6.10
       helm:
-        releaseName: podinfo
+        releaseName: nginx
         valueFiles:
           - $values/argocd-demo/manifests/values-prod.yaml
     - repoURL: https://github.com/deegupt4/k8s-manage-app
@@ -27,9 +27,9 @@ spec:
     name: kty-prd-01
     namespace: nginx-prod
   syncPolicy:
-    # automated:
-    #   prune: true
-    #   selfHeal: true
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
   ignoreDifferences:

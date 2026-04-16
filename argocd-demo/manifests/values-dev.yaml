@@ -1,3 +1,7 @@
+global:
+  imagePullSecrets:
+    - name: dockerhub-pull
+
 replicaCount: 1
 
 ui:
