@@ -11,7 +11,7 @@ metadata:
 spec:
   project: demo
   sources:
-    - repoURL: registry-1.docker.io/bitnamicharts
+    - repoURL: https://charts.bitnami.com/bitnami
       chart: nginx
       targetRevision: 22.6.10
       helm:
@@ -28,5 +28,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+      
     syncOptions:
       - CreateNamespace=true
