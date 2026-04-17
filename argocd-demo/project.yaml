@@ -16,10 +16,11 @@ spec:
     - name: kty-dev-01
       namespace: nginx-dev
     - name: kty-prd-01
-    
       namespace: nginx-prod
     - name: kty-dev-01
       namespace: nginx-kustomize-dev
+    - name: hou-sbx-01
+      namespace: nginx-sbx
   clusterResourceWhitelist:
     - group: ''
       kind: Namespace
